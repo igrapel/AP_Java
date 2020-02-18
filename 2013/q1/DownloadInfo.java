@@ -1,5 +1,4 @@
 
-package frq2013q1;
 import java.util.ArrayList;
 
 public class DownloadInfo {
@@ -14,6 +13,11 @@ public class DownloadInfo {
     public String getTitle()
     {
         return title;
+    }
+    
+    public int getTimesDownloaded()
+    {
+        return downloaded;
     }
     
     public void incrementTimesDownloaded()
