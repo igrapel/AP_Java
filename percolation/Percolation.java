@@ -1,4 +1,4 @@
-package Percolation;
+package percolation;
 
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
@@ -18,12 +18,12 @@ public class Percolation {
         throw new java.lang.IllegalArgumentException("IllegalArgument");
        }
         
-       grid = new boolean[size + 1][size + 1];
-       quf = new WeightedQuickUnionUF ((size + 1)*(size + 1));
+       grid = new boolean[size + 2][size + 2];
+       quf = new WeightedQuickUnionUF ((size + 2)*(size + 2));
        
        //open virtual bottom
        grid[0][0] = true;
-       //open virtual top
+       //open virtual top  xyTo1D
        grid[size + 1][size + 1]= true;
     }
     
@@ -40,8 +40,9 @@ public class Percolation {
         if(!grid[row][col])
         {
             grid[row][col] = true; 
+            connectOpens(row, col);
+            openSiteCount++;
         }
-        openSiteCount++;
     }
 
     private void connectOpens(int  row, int col)
@@ -58,26 +59,26 @@ public class Percolation {
             quf.union(xyTo1D(row, col), xyTo1D(size + 1, size + 1));
         }
         
-        // if cell under is opened
-        if (isOpen(row + 1, col))
+        // if isn't bottom row and cell under is open
+        if (row != size && isOpen(row + 1, col))
         {
         quf.union(xyTo1D(row, col), xyTo1D(row + 1, col));
         }
         
-        // if cell above is opened
-        if (isOpen(row - 1, col))
+        // if isn't top row and cell above is opened
+        if (row != 1 && isOpen(row - 1, col))
         {
         quf.union(xyTo1D(row, col), xyTo1D(row - 1, col));
         }
         
         // if cell to left is opened
-        if (isOpen(row, col-1))
+        if (col != 1 && isOpen(row, col-1))
         {
         quf.union(xyTo1D(row, col), xyTo1D(row, col-1));
         }
         
         // if cell to right is opened
-        if (isOpen(row, col+1))
+        if (col != size && isOpen(row, col+1))
         {
         quf.union(xyTo1D(row, col), xyTo1D(row, col+1));
         }
@@ -110,22 +111,32 @@ public class Percolation {
     
     private void checkIndices(int row, int col)
     {
-        
         if (row < 1 || row > size) 
         {
-            throw new IndexOutOfBoundsException("row index i out of bounds");
+        throw new IndexOutOfBoundsException("row index i out of bounds");
         }
         
-         if (col < 1 || col > size) 
+        if (col < 1 || col > size) 
         {
-            throw new IndexOutOfBoundsException("row index i out of bounds");
+        throw new IndexOutOfBoundsException("row index i out of bounds");
         }
-        
     }
     
     // test client (optional)
     public static void main(String[] args)
     {
+       Percolation test = new Percolation(5);
+//       test.open(1, 2);
+//       test.open(2, 2);
+       //test.open(3, 2);
        
+       test.open(1,1);
+       test.open(2,1);
+       test.open(3,1);
+       test.open(3,2);
+       test.open(4,2);
+       test.open(5,2);
+       System.out.println(test.percolates());
+       //System.out.println(test.isFull(2, 2));
     }
 }
