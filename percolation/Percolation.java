@@ -4,6 +4,10 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
+//to run from command line, one folder above percolation directory:
+
+// java -cp ./percolation/algs4.jar; percolation.PercolationVisualizer percolation/input20.txt
+
 public class Percolation {
     boolean[][] grid;
     WeightedQuickUnionUF quf;
