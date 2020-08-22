@@ -1,6 +1,6 @@
 package variables;
 import java.util.Scanner;
-
+import javax.swing.JOptionPane;
 
 public class Operations 
 {
@@ -38,6 +38,21 @@ public class Operations
 		System.out.println("The modulus of " + num1 + " and " + num2 + " is " +  
 		 
 		modulus); 
+                
+                //with casting
+                
+                System.out.println(num1 / num2);
+                System.out.println(1.0 / 3);
+                System.out.println(1 / 3.0);
+                System.out.println((double) 1 / 3);
  
+                
+                System.out.println(Integer.MIN_VALUE);
+                System.out.println(Integer
+                        .MAX_VALUE);
+                System.out.println(Integer.MIN_VALUE - 1);
+                System.out.println(Integer.MAX_VALUE + 1);
 	} 
+    
+    
 }
