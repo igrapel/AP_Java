@@ -12,7 +12,7 @@ public class Variables {
         int gallonsUsed;
         double milesPerGallon;
         
-        Scanner key = new Scanner(System.in);
+//        Scanner key = new Scanner(System.in);
         
 //        System.out.println("Enter Car Name:");
 //        car = key.nextLine();
