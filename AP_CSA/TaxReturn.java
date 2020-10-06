@@ -1,5 +1,4 @@
-
-package Mod3;
+package Topic_3;
 
 import javax.swing.*;
 
@@ -8,7 +7,7 @@ public class TaxReturn
     private double income;
     private String status;
     private int ssn;
-
+   
     private static final double RATE_1 = 0.15;
     private static final double RATE_2 = 0.20;
     private static final double RATE_3 = 0.28;
@@ -36,12 +35,7 @@ public class TaxReturn
         this.status = status;
         this.ssn = ssn;
     }
-    
-    public int getSSN()
-    {
-        return ssn;
-    }
-
+   
     public double getTax()
     {
         double tax = 0;
@@ -68,7 +62,7 @@ public class TaxReturn
                         RATE_4 * (income - MARRIED_BRACKET_4);
             }
         }
-        else if(status.equalsIgnoreCase("single") || status.equalsIgnoreCase("s")  )
+        else if((status.equalsIgnoreCase("single") || status.equalsIgnoreCase("s") ))
         {
             if (income <= SINGLE_BRACKET_1)
             {
@@ -90,18 +84,21 @@ public class TaxReturn
                         RATE_4 * (income - SINGLE_BRACKET_4);
             }
         }
-        
-        else
-        {
-            System.out.println("Inaccurate Status");
+        else{
+            System.out.println("It looks like you have a marital status input error");
         }
-
+   
         return tax;
     }
     
-    //@Override
-    public boolean equals(TaxReturn o)
+    public int getSSN()
     {
-        return o.getSSN()==this.getSSN();
+        return ssn;
+    }
+    
+    //@override
+    public boolean equals(TaxReturn c)
+    {
+        return (this.getSSN()==c.getSSN()) && (this.income == c.income);
     }
 }
