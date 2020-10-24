@@ -1,7 +1,10 @@
 package Week3;
-
 //import edu.princeton.cs.algs4.StdDraw;
-import java.util.*;
+import java.util.Comparator;
+import java.util.Arrays;
+//import java.util.ArrayList;
+import java.util.Collections;
+import edu.princeton.cs.algs4.StdDraw;
 
 public class Point implements Comparable<Point> {
 
@@ -105,7 +108,7 @@ public class Point implements Comparable<Point> {
         return new slopeOrder();
     }
 
-    class slopeOrder implements Comparator<Point>
+    private class slopeOrder implements Comparator<Point>
     {
         public int compare(Point p1, Point p2)
         {
@@ -137,7 +140,7 @@ public class Point implements Comparable<Point> {
         return "(" + x + ", " + y + ")";
     }
     
-    public void getName()    
+    private void getName()    
     {
         System.out.println(this.getClass().getCanonicalName());
     }
@@ -147,22 +150,22 @@ public class Point implements Comparable<Point> {
      */
     public static void main(String[] args) 
     {
-        ArrayList<Point> points = new ArrayList<Point>();
-        points.add(new Point(1,2));
-        points.add(new Point(2,9));
-        points.add(new Point(3,4));
-        points.add(new Point(4,5));
-        
-        
-        Point p = new Point(0,0);
-        System.out.println("Sorting By Slope");
-        Collections.sort(points, p.slopeOrder());
-        
-        for(int i = 0; i < points.size(); i++)
-        {
-            System.out.println(points.get(i).toString());
-        }
-        
+//        ArrayList<Point> points = new ArrayList<Point>();
+//        points.add(new Point(1,2));
+//        points.add(new Point(2,9));
+//        points.add(new Point(3,4));
+//        points.add(new Point(4,5));
+//        
+//        
+//        Point p = new Point(0,0);
+//        System.out.println("Sorting By Slope");
+//        Collections.sort(points, p.slopeOrder());
+//        
+//        for(int i = 0; i < points.size(); i++)
+//        {
+//            System.out.println(points.get(i).toString());
+//        }
+//        
        // ~/NetBeansProjects/alg1/src/main/java$ java -cp .  Week3.Point
 
  
