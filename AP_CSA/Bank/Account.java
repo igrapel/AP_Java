@@ -1,11 +1,14 @@
 
+package Topic_5;
+
 public class Account 
 {
     //Encapsulation 
     private int id;
     private double amount;
     private Customer customer;
-    private static int numOfAccounts = 0;
+    public static int numOfAccounts= 0;
+   
     
     /**Precondition: Customer must come from Customer class in this package
      * ID must be non-negative
@@ -34,9 +37,11 @@ public class Account
         amount = 0;
         customer = null;
         numOfAccounts++;
+        
+        
     }
-    
-    public int getNumOfAccounts()
+   
+    public static int getNumOfAccounts()
     {
         return numOfAccounts;
     }
@@ -60,11 +65,15 @@ public class Account
     {
         amount += w;
     }
+    
+    public void attachCustomer(Customer c)
+    {
+        customer = c;
+    }
+    
     /*
     @override
-    
     */
-    
     public String toString()    
     {
        return "This account is number " + id + " \n Amount: " + amount;    
