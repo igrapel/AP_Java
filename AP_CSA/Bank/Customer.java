@@ -1,18 +1,22 @@
 
+package Topic_5;
+
 
 public class Customer 
 {
      private String name;
      private int ssn;
      private Account account;
-     private static int customerNumber =0;
+     private static int numOfCustomers = 0;
+    
  
 public Customer(String n, int s, Account a)
 {
     name= n;
     ssn = s;
     account = a;
-    customerNumber++;
+    numOfCustomers++;
+    
 }
 
 /**
@@ -23,9 +27,15 @@ public Customer(String n, int s)
 {
     name= n;
     ssn = s;
-    account = null;
-    customerNumber++;
+    account = new Account();
+    numOfCustomers++;
+    
 }   
+
+public static int getNumOfCustomers()
+{
+    return numOfCustomers;
+}
 
 public String getName()
 {
@@ -37,19 +47,20 @@ public int getSsn()
     return ssn;
 }
 
-public int getCustomerNumber()
-{
-    return customerNumber;
-}
+
 
 public Account getAccount()
 {
     return account;
 }
 
+public void attachAccount(Account a)
+{
+    account = a;
+}
 //@override
 public String toString()
 {
-    return "This is customer: " + this.getName() + " with the ID: " + this.getSsn();
+    return "This is customer " + name + " \nwith SSN" + ssn + " \nwith account \n" + this.getAccount().toString();
 }
 }
