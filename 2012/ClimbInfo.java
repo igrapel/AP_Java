@@ -10,8 +10,8 @@ package Y2012;
  * @author ilan
  */
 public class ClimbInfo {
-    String peakName;
-    int climbTime;
+    private String peakName;
+    private int climbTime;
     
  /** Creates a ClimbInfo object with name peakName and time climbTime.
  * @param peakName the name of the mountain peak
