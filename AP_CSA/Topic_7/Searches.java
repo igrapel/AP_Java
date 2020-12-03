@@ -1,78 +1,122 @@
+
+package Topic_7;
+import java.util.*;
+
+public class Searches 
+{
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Mod7;
-import java.util.*;  
-/**
- *
- * @author ilan
- */
-
-
-public class Searches {
-
-    public static int getRandom(int a, int b)
+    Method that returns random numbers
+    @param min lowest possible int
+    @param max highest possible int
+    
+    @return random int
+    */
+    public static int getRandom(int min, int max)
     {
-        int rand = (int)(Math.random()*b) + a;
+        int rand = (int)(Math.random()*(max - min) + 1 + min);
         return rand;
-        
     }
     
-    public static void fillAL(ArrayList<Integer> al, int n)
+    /**
+     * 
+     * @param al which is a declared arraylist
+     * @param n which is the size of the arraylist
+     * @return void - popu;ate declared arraylist
+     */
+    public static void populateAL(ArrayList<Integer> al, int n)
     {
         for(int i = 0; i < n; i++)
         {
-         int rand = getRandom(0, 1000);
-         al.add(rand);      
+            int randNum = getRandom(-10, 50);
+            al.add(randNum);
         }
     }
     
-    public static void fillSortedAL(ArrayList<Integer> al, int n)
+     /**
+     * 
+     * @param al which is a declared arraylist
+     * @param n which is the size of the arraylist
+     * @return void - popu;ate declared arraylist with numbers in order
+     */
+    public static void populateOrderedAL(ArrayList<Integer> al, int n)
     {
         for(int i = 0; i < n; i++)
         {
-         int rand = getRandom(0 + i*10, 5);
-         al.add(rand);      
+            int randNum = getRandom(10*(i - 1), 10*i);
+            al.add(randNum);
         }
     }
     
-    public static int findNum(ArrayList<Integer> al, int n)
+    /*
+     @para arraylist of int
+     @para int that we are searching for
+    
+     @return the index of the int or negative -1
+    */
+    public static int getIndexLinear(ArrayList<Integer> al, int num)
     {
         for(int i = 0; i < al.size(); i++)
         {
-            if(al.get(i)== n)
+            if(al.get(i) == num)
             {
                 return i;
             }
-            
         }
-        
         return -1;
     }
     
+  /*
+     @para arraylist of int
+     @para int that we are searching for
+    
+     @return the index of the int or negative -1
+     pre-requisite: ArrayList is in order
+    
+    */
+    
+    public static int binarySearch(ArrayList<Integer> al, int n)
+    {
+       int leftIndex = 0;
+       int rightIndex = al.size()-1;
+        
+       while(leftIndex <=rightIndex)
+       {
+         int middleIndex = leftIndex + (rightIndex - leftIndex)/2;
+         
+         if(al.get(middleIndex) == n)
+         {
+             return middleIndex;
+         }
+           
+         else if (n > al.get(middleIndex))
+         {
+             leftIndex = middleIndex + 1;
+         }
+         
+         else
+         {
+             rightIndex = middleIndex -1;
+         }
+       }
+       //not there
+       return -1;
+    }
     public static void main(String[] args)
     {
-        ArrayList<Integer> randNums = new ArrayList<Integer>();
-        ArrayList<Integer> sortedRandNums = new ArrayList<Integer>();
-        //Fill a bunch of numbers
-        fillAL(randNums, 10000000);
+        ArrayList<Integer> myAL = new ArrayList<Integer>();
+       // populateAL(myAL, 100000000);
+       populateOrderedAL(myAL, 10000000);
+//        for(int n : myAL)
+//        {
+//            System.out.println(n);
+//        }
+        //not on CSA curriculum
+        double startTime = System.currentTimeMillis();
         
-        System.out.println(randNums);
+        System.out.println(binarySearch(myAL, 54));
         
-        long startTime = System.currentTimeMillis();
-        //find linearly
-        findNum(randNums, -4);
-        long endTime = System.currentTimeMillis();
-
+        double endTime = System.currentTimeMillis();
         System.out.println("That took " + (endTime - startTime) + " milliseconds");
-        
-        //Sorted ArrayList
-//        fillSortedAL(sortedRandNums, 100);
-//        System.out.println(sortedRandNums);
-        
-        
+
     }
-    
 }
