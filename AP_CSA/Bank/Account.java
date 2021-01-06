@@ -1,12 +1,21 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Topic_9.Bank;
 
-package Topic_5;
+/**
+ *
+ * @author 323917
+ */
 
 public class Account 
 {
     //Encapsulation 
     private int id;
     private double amount;
-    private Customer customer;
+    
     public static int numOfAccounts= 0;
    
     
@@ -18,11 +27,10 @@ public class Account
      * @param a
      * @param c 
      */ 
-    public Account(int id, double amount, Customer customer)
+    public Account(int id, double amount)
     {
         this.id = id;
         this.amount = amount;
-        this.customer = customer;
         numOfAccounts++;
     }
     
@@ -35,10 +43,7 @@ public class Account
     {
         id = 999;
         amount = 0;
-        customer = null;
         numOfAccounts++;
-        
-        
     }
    
     public static int getNumOfAccounts()
@@ -59,21 +64,20 @@ public class Account
     public void withdrawl(double w)
     {
         amount -= w;
+        amount -= .05;
     }
     
     public void deposit(double w)
     {
         amount += w;
+        amount -= .05;
     }
-    
-    public void attachCustomer(Customer c)
-    {
-        customer = c;
-    }
-    
+   
     /*
     @override
     */
+    
+    //Known as polymorphism
     public String toString()    
     {
        return "This account is number " + id + " \n Amount: " + amount;    
@@ -83,24 +87,6 @@ public class Account
     public static void p(Object o)
     {
         System.out.println(o);
-    }
-    
-    public static  void  main(String[] args)
-    {
-        Account a1 = new Account(8, 1000, null);
-        System.out.println(a1.getAmount());
-        p(a1.getAmount());
-        p(a1.amount);
-        
-        Customer Dan = new Customer("Dan", 123, a1);
-        p(Dan.getSsn());
-        a1.deposit(4000);
-        a1.withdrawl(900);
-        
-        p("Dan has in his account " + Dan.getAccount().getAmount());
-        p(a1);
-        p(Dan);
-        
     }
     
 }
