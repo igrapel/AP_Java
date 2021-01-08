@@ -1,20 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Topic_9.Bank;
 
-//add on checkes
 public class Checking extends Account
 {
 int checks; 
-
-//public Checking()
-//{
-//    super();
-//    checks= 10;
-//}
 
 public Checking(int id, double amount, int checks)
 {
@@ -22,6 +10,10 @@ public Checking(int id, double amount, int checks)
     this.checks = checks;
 }
 
+public int getChecks()
+{
+    return checks;
+}
 public void writeCheck(double d)
 {
     checks--;
@@ -37,5 +29,17 @@ public String oldToString()
 {
     return super.toString();
 }
-    
+   
+public boolean equals(Checking c)
+{
+   if(c == this ){
+       return true;
+   } 
+   
+   if(c.getId() == this.getId())
+   {
+       return true;
+   }
+   return false;
+}
 }
