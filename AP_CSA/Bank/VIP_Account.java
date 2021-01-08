@@ -1,24 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Topic_9.Bank;
 
-/**
- *
- * @author 323917
- */
+
 public class VIP_Account extends Account
 {
-/*
-   VIP inherit everything from Account
--	attribute Int points;
--	     
-        method:   remind about giving a special card
-                  indicated that account earned award based on points
-
-    */
+    
  int points;
  
  public VIP_Account()
@@ -43,16 +28,22 @@ public class VIP_Account extends Account
      points = p;
  }
  
+ public boolean checkPoints(int cutoff)
+ {
+     if(points > cutoff )
+     {
+         return true;
+     }
+     else
+     {
+         return false;
+     }
+ }
+ 
      public String oldPrint()
  {
      return super.toString();
  }
- 
- /*
- @override
- polymorphism
- */
- 
 
 public String toString()    
 {
