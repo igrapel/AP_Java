@@ -1,84 +1,88 @@
 
-package Mod10;
-
+package Topic_10;
 
 public class MergeSort 
 {
-private static int[] myArray;
-private static int[] tempArray;
-private static int z = 1;
-
-public static void mergeSort(int[] arr)
-{
-    myArray= arr;
-    int length = arr.length;
-    tempArray = new int[length];
-    setUpMerge(0, length - 1);
-}
-
-private static void setUpMerge(int lower, int higher)
-{
-    if(lower < higher)
+    private static int[] myArray;
+    private static int[] tempArray;
+    private static int counter;
+    
+    public static void mergeSort(int[] arr)
     {
-        int middle = lower + (higher - lower) / 2;
-        setUpMerge(lower, middle);
-        setUpMerge(middle + 1, higher);
-        doTheMerge(lower, middle, higher);
-    }
-}
-
-private static void doTheMerge(int lower, int middle, int higher)
-{
-    for(int i = lower; i<=higher;i++)
-    {
-        tempArray[i] = myArray[i];
+        myArray = arr;
+        int length = arr.length;
+        tempArray = new int[length];
+        splitArray(0, length-1);
     }
     
-    int i = lower;
-    int j = middle + 1;
-    int k = lower;
-    while(i <= middle && j <=higher)
+    public static void splitArray(int lower, int higher)
     {
-        if(tempArray[i] <= tempArray[j])
+        if(lower<higher)
+        {
+          int middle = lower + (higher-lower)/2;
+          splitArray(lower, middle);
+          splitArray(middle + 1, higher);
+          reMerge(lower, middle, higher);
+        }
+    }
+    
+    public static void reMerge(int lower, int middle, int higher)
+    {
+        //copy array into temporary array
+        for(int i = 0; i <=higher; i++)
+        {
+            tempArray[i] = myArray[i];
+        }
+        
+        int i = lower;
+        int j = middle + 1;
+        int k = lower;
+        
+        while(i <= middle && j<=higher)
+        {
+            if(tempArray[i] <= tempArray[j])
+            {
+                myArray[k] = tempArray[i];
+                i++;
+            }
+            else
+            {
+                myArray[k] = tempArray[j];
+                j++;
+            }
+            k++;
+        }
+        
+        while(i<=middle)
         {
             myArray[k] = tempArray[i];
+            k++;
             i++;
         }
-        else
-        {
-            myArray[k] = tempArray[j];
-            j++;
-        }
-
-        k++;
-    }
-    while(i <= middle)
-    {
-        myArray[k] = tempArray[i];
-        k++;
-        i++;
-    }
-    
-        System.out.print(z + ": ");
+        
+        System.out.print(counter + ": ");
         printArray(myArray);
         System.out.println();
-        z++;
-}
-
-public static void printArray(int[] arr)
-{
-    for(int i : arr)
-    {
-        System.out.print(i + "\t");
+        counter++;
     }
-}
-public static void main(String[] args)
-{
-   int[] randArray = {16,1,24,3,5,17,8,12};
-   mergeSort(randArray);
-   for(int i: randArray)
+    
+   public static void printArray(int[] arr)
    {
-       System.out.print(i + "\t");
+       for(int i : arr)
+       {
+           System.out.print(i + "\t");
+       }
    }
-}
+   
+   public static void main(String[] args)
+   {
+    int[] randArray = {12, 1, 2, 5, -2, 0, 14};
+    mergeSort(randArray);
+    printArray(randArray);
+       
+       
+       
+       
+   }
+    
 }
