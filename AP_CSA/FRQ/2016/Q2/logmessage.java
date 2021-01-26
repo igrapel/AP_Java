@@ -16,9 +16,12 @@ public class LogMessage
     public boolean containsWord(String keyword)
     {
         int indexKey = description.indexOf(keyword);
+        int descriptionLength = description.length();
+        int keywordLength = keyword.length();
         
         if(indexKey == -1)
         {
+            System.out.println("Test 1");
             return false;
         }
         
@@ -27,11 +30,10 @@ public class LogMessage
             return false;
         }
        
-        else if(description.indexOf(keyword + ' ' ) == -1 && description.substring(description.length() - keyword.length() - 1).equals(keyword))
+        else if(indexKey != (descriptionLength - keywordLength) && description.substring(indexKey + keywordLength, indexKey + keywordLength + 1).equals(" "))
         {
             return false;
         }
-        
         else
         {return true;}
     }
@@ -42,6 +44,10 @@ public class LogMessage
     public String getDescriptionId()
         {return description;}   
         
-        
+    public static void main(String[] args)
+    {
+        LogMessage test = new LogMessage("Server1: file not find on disk DSK!");
+        System.out.println(test.containsWord("Server1"));
+    }
     
 }
