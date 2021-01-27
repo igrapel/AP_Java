@@ -1,5 +1,4 @@
-
-package FRQ2016.Q2;
+package FRQ.Y2016.Q2;
 
 public class LogMessage 
 {
@@ -19,25 +18,25 @@ public class LogMessage
         int descriptionLength = description.length();
         int keywordLength = keyword.length();
         
-        if(indexKey == -1)
+        if(description.indexOf(" " + keyword + " ") != -1)
         {
-            System.out.println("Test 1");
-            return false;
+        return true;            
         }
-        
-        else if(indexKey != 0 && description.substring(indexKey - 1,indexKey).equals(' ')== false)
+        else if(indexKey == 0 && 
+                ((description.indexOf(keyword + " ") != -1) || (keyword.length() == description.length())))
         {
-            return false;
+        return true;
         }
-       
-        else if(indexKey != (descriptionLength - keywordLength) && description.substring(indexKey + keywordLength, indexKey + keywordLength + 1).equals(" "))
+        else if(description.substring(descriptionLength - keywordLength -1).equals(" " + keyword))
         {
-            return false;
+        return true;
         }
         else
-        {return true;}
+        {
+        return false;    
+        }
     }
-    
+       
     public String getMachineId()
         {return machineId;}
         
@@ -46,8 +45,8 @@ public class LogMessage
         
     public static void main(String[] args)
     {
-        LogMessage test = new LogMessage("Server1: file not find on disk DSK!");
-        System.out.println(test.containsWord("Server1"));
+        LogMessage test = new LogMessage("Server1:disk");
+        System.out.println(test.containsWord("disk"));
     }
     
 }
