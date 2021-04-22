@@ -28,26 +28,34 @@ public class StringCoder {
     private StringPart findPart(String str)
     {
         int index = 1;
-        int location = masterString.indexOf(str.substring(0,index));
-        
-        while(index < str.length() && masterString.indexOf(str.substring(0,index + 1)) != -1)
+       
+        while(index < str.length() && masterString.indexOf(str.substring(0,index)) != -1)
         {
             index++;
         }
         
-        StringPart part = new StringPart(location, index);
-        return part;
+        if(masterString.indexOf(str) != -1)
+        {
+            StringPart part = new StringPart(masterString.indexOf(str) , str.length());
+            return part;
+        }
+        else{
+            int location = masterString.indexOf(str.substring(0,index - 1));
+            StringPart part = new StringPart(location, index - 1);
+            return part;
+        }
     }
     
     public ArrayList<StringPart> encodeString(String word)
     {
         ArrayList<StringPart> parts = new ArrayList<StringPart>();
         
-        while(word.length() > 0)
+        int index = 0;
+        while(index < word.length())
         {
             StringPart part = findPart(word);
-            word = word.substring(part.getLength());
             parts.add(part);
+            word = word.substring(part.getLength());
         }
         return parts;
     }
