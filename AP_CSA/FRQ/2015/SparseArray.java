@@ -27,11 +27,11 @@ public class SparseArray
                 return e.getValue();
             }
         }
+        return 0;
     }
 
     public void removeColumn(int col)
     {
-        numRows--;
         for(int i = 0; i < entries.size(); i++)
         {
             SparseEntryArray currentE = entries.get(i);
@@ -49,5 +49,6 @@ public class SparseArray
 
             }
         }
+          numCol--;
     }
 }
