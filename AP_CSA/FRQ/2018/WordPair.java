@@ -2,7 +2,7 @@ public class WordPair
 {
     String first, second;
 
-    public WordPair(string first, String second)
+    public WordPair(String first, String second)
     {
        this.first = first;
        this.second = second;
