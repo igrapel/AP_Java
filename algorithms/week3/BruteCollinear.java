@@ -14,8 +14,18 @@ public class BruteCollinearPoints {
                 throw new IllegalArgumentException("Null Values.");
             }
         }
-        
-        Arrays.sort(points);
+
+        Point[] orderedPoints = new Point[points.length];
+        for (int i = 0; i < points.length; i++)
+        {
+            orderedPoints[i] = points[i];
+        }
+
+        Arrays.sort(orderedPoints);
+        for (int i = 0; i <= points.length - 2; i++)
+        {
+            if (orderedPoints[i].compareTo(orderedPoints[i+1]) == 0) { throw new IllegalArgumentException("Duplicate Values."); }
+        }
         for (int a = 0; a <= points.length - 4; a++) {
             for (int b = a + 1; b <= points.length - 3; b++) {
                 for (int c = b + 1; c <= points.length - 2; c++) {
@@ -28,7 +38,7 @@ public class BruteCollinearPoints {
                     System.out.println("Second Slope:" + points[a].slopeTo(points[b]));
                     System.out.println("Third Slope:" + points[a].slopeTo(points[c]));
                     //System.out.println("Fourth Slope:" + points[a].slopeTo(points[d]));**/
-                    if (points[a].slopeTo(points[b]) == points[a].slopeTo(points[c]))
+                    if (orderedPoints[a].slopeTo(orderedPoints[b]) == orderedPoints[a].slopeTo(orderedPoints[c]))
                     {
                         for (int d = c + 1; d <= points.length - 1; d++)
                         {
@@ -41,14 +51,14 @@ public class BruteCollinearPoints {
                             System.out.println("Second Slope:" + points[a].slopeTo(points[b]));
                             System.out.println("Third Slope:" + points[a].slopeTo(points[c]));
                             System.out.println("Fourth Slope:" + points[a].slopeTo(points[d]));**/
-                            if (points[a].slopeTo(points[c]) == points[a].slopeTo(points[d]))
+                            if (orderedPoints[a].slopeTo(orderedPoints[c]) == orderedPoints[a].slopeTo(orderedPoints[d]))
                             {
                                 /** System.out.println("Last Loop: ");
                                 System.out.println("First Point:  " +points[a]);
                                 System.out.println("Fourth Point: " + points[d]);
                                 System.out.println("Third Slope:" + points[a].slopeTo(points[c]));
                                 System.out.println("Fourth Slope:" + points[a].slopeTo(points[d]));**/
-                                LineSegment line = new LineSegment(points[a], points[d]);
+                                LineSegment line = new LineSegment(orderedPoints[a], orderedPoints[d]);
                                 lines.add(line);
                             }
                         }
