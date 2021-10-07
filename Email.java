@@ -14,7 +14,7 @@ public class Email {
 
         host = "smtp.office365.com";
         user = "323917@dadeschools.net";//change accordingly
-        password = "Elisha912114!";//change accordingly
+        password = "****";//change accordingly
         this.to = to;
 
         //Get the session object
