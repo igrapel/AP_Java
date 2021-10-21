@@ -16,7 +16,7 @@ public class Email {
 
         host = "smtp.office365.com";
         user = "323917@dadeschools.net";//change accordingly
-        password = "*****";//sql server pwd
+        password = "*****";//email pwd
         this.to = to;
 
         //Get the session object
