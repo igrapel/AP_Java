@@ -11,12 +11,27 @@ public class Student
     String id;
     String course;
     double gpa;
-    
+    double[] grades;
 
-    public Student(String id, String course, double gpa) {
+    public Student(String id, String course, double[] g) {
         this.id = id;
         this.course = course;
-        this.gpa = gpa;
+        this.grades = g;
+    }
+    
+    public void setGpa()
+    {
+        double sum = 0;
+//        for(int i = 0; i < grades.length; i++)
+//        {
+//            sum += grades[i];
+//        }
+         for(double g : grades)
+         {
+             sum+= g;
+         }
+        
+        this.gpa = sum / grades.length;
     }
 
     public String getId() {
