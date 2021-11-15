@@ -4,4 +4,4 @@ This repository contains:
 
 * Some MOOC projects
 
-* A side project(E-mail template that automatically sends and stores emails to parents)
+* JAVA E-mail program that sends template emails to parents and stores the contact information
