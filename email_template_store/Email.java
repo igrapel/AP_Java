@@ -1,6 +1,7 @@
 package com.company;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
+import java.util.Scanner;
 import javax.mail.*;
 import javax.mail.internet.*;
 
@@ -16,7 +17,7 @@ public class Email {
 
         host = "smtp.office365.com";
         user = "323917@dadeschools.net";//change accordingly
-        password = "*****";//email pwd
+        password = "E******!";//change accordingly
         this.to = to;
 
         //Get the session object
@@ -39,28 +40,40 @@ public class Email {
         session = Session.getDefaultInstance(props, auth);
     }
 
-    public void sendMessage(String n, String gender)
+    public void sendMessage(String n, String g)
     {
+        String gender = g;
+        String adj;
         String obj;
-        if(gender.equals("b")) { obj = "him"; }
-        else { obj = "her"; }
 
-        /**String e_message = "Dear parents, " +
-                "\nI am " + n + "'s computer science teacher. " + n + " is not completing " + obj + " work. As a result, " +
-                n + " is in danger of failing the class. I hope you can speak with " + n + " and encourage " + obj +
+        if(gender.equalsIgnoreCase("Male"))
+        {
+            adj = "his";
+            obj = "him";
+        }
+        else if(gender.equalsIgnoreCase("Female"))
+        {
+            adj = "her";
+            obj = "her";
+        }
+        else
+        {
+            adj = "they";
+            obj = "their";
+        };
+
+        String e_message = "Dear parents, " +
+                "\n\nI am " + n + "'s computer science teacher. " + n + " is not completing " + adj + " work. As a result, " +
+                n + " is in danger of failing the class. I hope you can speak with " + obj  + " and encourage " + obj +
                 " to put in the effort to pass the class." +
                 "\n\n" + "Sincerely, \n\nMr. Ilan Grapel\nIB and AP Computer Science \nCoral Gables Senior High";
-        **/
-
-        String e_message = "I would like this message to remain anonymous - however, Katherine has been bullying me" +
-                "and numerous other students.";
 
         //Compose the message
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(user, "Gabriel Wagner"));
+            message.setFrom(new InternetAddress(user, "Coral Gables Senior High: Mr. Ilan Grapel"));
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
-            message.setSubject(n + "'s Behvaior");
+            message.setSubject(n + "'s Academic Performance");
             message.setText(e_message);
 
             //send the message
