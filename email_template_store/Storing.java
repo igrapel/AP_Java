@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.Properties;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Storing {
     private String user; //igrapel
@@ -85,5 +87,10 @@ public class Storing {
             System.err.println(e.getMessage());
         }
     }**/
-}
+        // 2021-11-1T22:12:23
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String d = dtf.format(now);
+        System.out.println(d);
+    }
 }
