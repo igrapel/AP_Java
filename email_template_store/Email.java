@@ -17,8 +17,12 @@ public class Email {
 
         host = "smtp.office365.com";
         user = "323917@dadeschools.net";//change accordingly
-        password = "E******!";//change accordingly
+        Scanner inp = new Scanner(System.in);
+        System.out.println("Password: ");
+        String pw = inp.nextLine();
+        password = pw;//change accordingly
         this.to = to;
+
 
         //Get the session object
         props = new Properties();
@@ -82,7 +86,16 @@ public class Email {
             System.out.println("message sent successfully...");
 
         }
-        catch (MessagingException e)
+        catch(SendFailedException e)
+        {
+            System.out.println("Generic error");
+            System.exit(1);
+        }
+        catch (AddressException e)
+        {
+            System.out.println("Generic error");
+            System.exit(1);
+        } catch (MessagingException e)
         {
             e.printStackTrace();
         }
