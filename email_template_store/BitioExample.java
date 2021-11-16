@@ -19,6 +19,7 @@ public class BitioExample
     Properties props;
     public BitioExample() {
         //"SELECT * FROM \"igrapel/Parents\".\"parents\";"
+        //API KEYS
         c = null;
         bitApiKey = "L3zS_SjMWrcphg3R5VHcP7RQ3hXY";
         bitDB = "bitdotio";
@@ -31,6 +32,10 @@ public class BitioExample
         props.setProperty("password", bitApiKey);
     }
 
+    /*
+        sql_para: SQL String
+        dataReturn: True if the query returns information. False if not.
+     */
     public void sendSQL(String sql_para, boolean dataReturn)
     {
         sql_statement = sql_para;
