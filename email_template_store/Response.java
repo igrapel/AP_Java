@@ -3,21 +3,16 @@ import java.sql.*;
 import java.util.Properties;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.Statement;
-import java.util.Properties;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
 
 public class Response
 {
-    //SQL Server Response
+    //SQL Server connection details
     private String user; //igrapel
     private String password; //gables21
     String url = "jdbc:sqlserver://DESKTOP-TR5JF24\\SQLEXPRESS;databaseName=Contacts";
     String time;
-    //BIT IO
+    //BIT IO connection details
     String sql_statement;
     Connection c;
     String bitApiKey;
@@ -26,7 +21,11 @@ public class Response
     String bitHost;
     String bitPort;
     Properties props;
-
+    /**
+     *Costructor
+     * @param user  SQL server user name (igrapel)
+     * @param pw    SQL server password (gables21)
+     */
     public Response(String user, String pw) {
         try {
             // Step 1: "Load" the JDBC driver
@@ -37,9 +36,9 @@ public class Response
             password = pw;
 
             try {
-                Connection conn = DriverManager.getConnection(url, user, password);
+                Connection conn = DriverManager.getConnection(url, this.user, password);
             } catch (SQLException e) {
-                System.out.println("There is an SQL error");
+                System.out.println("SQL server connection error");
                 e.printStackTrace();
             }
 
@@ -48,7 +47,7 @@ public class Response
             System.err.println(e.getMessage());
         }
 
-        //Bit io
+        //Bit io connection details
         c = null;
         bitApiKey = "L3zS_SjMWrcphg3R5VHcP7RQ3hXY";
         bitDB = "bitdotio";
@@ -61,6 +60,13 @@ public class Response
         props.setProperty("password", bitApiKey);
     }
 
+    /**
+     * Store correspondence
+     * @param student
+     * @param contact
+     * @param date
+     * @param comment
+     */
     public void storeCorrespondenseLocal(String student, String contact, String date, String comment)
     {
         try{
@@ -77,18 +83,28 @@ public class Response
         }
     }
 
-    public void sendSQL(String sql_comm, String time, boolean dataReturn)
+    /**
+     *
+     * @param summaryOfParentResponse   Summary of parent response
+     * @param time                      Time of correspondence in format: 2021-11-16 17:40:25.0000000
+     *
+     * Updates the response column based on time of correspondence
+     */
+    public void updateResponse(String summaryOfParentResponse, String time)
     {
         //SQL Server
-        try{
+        try
+        {
             Connection conn = DriverManager.getConnection(url,user,password);
             Statement statement = conn.createStatement();
             this.time = time;
-            String comment = sql_comm;
+            String comment = summaryOfParentResponse;
             String SQL_statement = "UPDATE Parents SET response = '" + comment + "' WHERE date_sent = '" + this.time + "'";
             System.out.println(SQL_statement);
             statement.executeUpdate(SQL_statement);
-        } catch(SQLException e){
+        }
+        catch(SQLException e)
+        {
             System.out.println("There is an error");
             e.printStackTrace();
         }
@@ -98,41 +114,26 @@ public class Response
         int indexSpace = this.time.indexOf(" ");
         String date_bit = this.time.substring(0,indexSpace) + "T" + this.time.substring(indexSpace + 1);
 
-        sql_statement = "UPDATE \"igrapel/Parents\".\"parents\" SET response = " + "'" + sql_comm + "' WHERE date = '" + date_bit + "'";
-        ResultSet rs = null;
-        try {
+        sql_statement = "UPDATE \"igrapel/Parents\".\"parents\" SET response = " + "'" + summaryOfParentResponse + "' WHERE date = '" + date_bit + "'";
+        try
+        {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager
-                    .getConnection("jdbc:postgresql://" + bitHost + ":" + bitPort + "/" + bitDB, props);
+            c = DriverManager.getConnection("jdbc:postgresql://" + bitHost + ":" + bitPort + "/" + bitDB, props);
             Statement stmt = c.createStatement();
-            if(dataReturn)
-            {
-                rs = stmt.executeQuery(sql_statement);
-                while (rs.next()) {
-                    ResultSetMetaData rsmd = rs.getMetaData();
-                    // The ResultSet .getXXX() methods expect the column index to start at 1.
-                    // No idea why.
-                    for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                        System.out.print(rsmd.getColumnName(i) + "=" + rs.getString(i) + " ");
-                    }
-                    System.out.println();
-                }
-            }
-            else{int rowsUpdated = stmt.executeUpdate(sql_statement);}
-
-        } catch (Exception e) {
+            stmt.executeUpdate(sql_statement);
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
-
         }
     }
 
     public static void main(String[] args)
     {
         Response test = new Response("igrapel", "gables21");
-        test.sendSQL("Parent claims she will address", "2021-11-15 17:09:50.0000000", false);
-
-
+        test.updateResponse("Parent emailed she will \"take care of situation\"",
+                "2021-11-15 17:09:50.0000000");
     }
 }
